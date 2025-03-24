@@ -1,0 +1,20 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+    string s = "лнйоы";
+
+    // Сортируем строку, чтобы перестановки выводились в лексикографическом порядке
+    sort(s.begin(), s.end());
+
+    // Выводим все перестановки
+    do {
+        cout << "П" << s << endl;
+    } while (next_permutation(s.begin(), s.end()));
+
+    return 0;
+}
