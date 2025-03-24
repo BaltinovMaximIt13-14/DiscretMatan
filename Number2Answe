@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// Функция для обратной перестановки блока
+string decryptBlock(const string& block, const vector<int>& key) {
+    if (block.size() != 6) return block; // Если блок неполный, оставляем как есть
+
+    string decrypted(6, ' ');
+    for (int i = 0; i < 6; ++i) {
+        int original_pos = key[i] - 1; // ключи в key нумеруются с 1
+        decrypted[original_pos] = block[i];
+    }
+    return decrypted;
+}
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+    string ciphertext = "лнПйоыес цмяве истналк  ышавмо куыюр ишбу ыеесл нытме гооне ого волижаищна;д  рев о,веоебдомнон адгйроз  уибжнлкыи сао,та язличабьосру адглаяу ча,жмк еееин ре ндв переей.вБо егеор ывбмропу ксссяакл ор  мючтп оисауы мстхн ее, ие ни увз б ссеерпврым ноыртоп омеспалксьлти ноесм-иеивн ныо л.";
+
+
+    // Ключ перестановки (3 5 1 2 6 4) → обратная перестановка: (3 4 1 6 2 5)
+    vector<int> inverse_key = { 3, 4, 1, 6, 2, 5 }; // позиции в key: 1→3, 2→4, 3→1, 4→6, 5→2, 6→5
+
+    string plaintext;
+
+    // Обрабатываем по 6 символов
+    for (size_t i = 0; i < ciphertext.size(); i += 6) {
+        string block = ciphertext.substr(i, 6);
+        string decrypted_block = decryptBlock(block, inverse_key);
+        plaintext += decrypted_block;
+    }
+
+    cout << "Расшифрованный текст:\n" << plaintext << endl;
+
+    return 0;
+}
